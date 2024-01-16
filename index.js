@@ -1,84 +1,53 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const taskInput = document.querySelector('.task-input');
-    const taskList = document.querySelector('.task-list');
-    const progressBarContainer = document.querySelector('.progress-bar-container');
-    const progressBar = document.querySelector('.progress-bar');
-    const downloadBtn = document.querySelector('.download-btn');
-    const addTaskBtn = document.querySelector('.add-task-btn');
-    const dateDisplay = document.getElementById('date-display');
+    document.getElementById('dateDisplay').innerText = new Date().toISOString().split('T')[0];
 
-    // Initially hide the progress bar container
-    progressBarContainer.style.display = 'none';
+    document.getElementById('addTaskButton').addEventListener('click', addTask);
+    document.getElementById('taskInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addTask();
+        }
+    });
+    document.getElementById('downloadButton').addEventListener('click', downloadTasks);
 
-    // Display current date
-    const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    dateDisplay.textContent = currentDate;
+    document.getElementById('taskList').addEventListener('click', function(event) {
+        if (event.target.classList.contains('deleteTask')) {
+            event.target.parentElement.remove();
+        } else if (event.target.type === 'checkbox') {
+            toggleCompletion(event.target);
+        }
+    });
+});
 
-    // Function to update the progress bar
-    function
-updateProgressBar() {
-const tasks = taskList.querySelectorAll('.task-list-item');
-const completedTasks = taskList.querySelectorAll('.completed').length;
-const totalTasks = tasks.length;
-const progress = totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
-progressBar.style.width = progress + '%';
-    // Hide or show the progress bar container based on tasks
-    progressBarContainer.style.display = totalTasks === 0 ? 'none' : 'block';
-}
-
-// Function to add a new task with a delete button
 function addTask() {
-    if (taskInput.value.trim() !== '') {
-        const listItem = document.createElement('li');
-        listItem.classList.add('task-list-item');
-        
-        // Create a span to hold the task text
-        const textSpan = document.createElement('span');
-        textSpan.textContent = taskInput.value;
-        listItem.appendChild(textSpan);
+    let taskInput = document.getElementById('taskInput');
+    let taskValue = taskInput.value.trim();
+    if (taskValue === '') return;
 
-        // Create a delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.classList.add('delete-task-btn');
-        deleteBtn.onclick = function() {
-            listItem.remove();
-            updateProgressBar();
-        };
-
-        // Append the delete button to the list item
-        listItem.appendChild(deleteBtn);
-
-        listItem.addEventListener('click', function(event) {
-            // Toggle completed class only when clicking on the text, not the delete button
-            if (event.target === textSpan) {
-               ();
-}
-});
-        taskList.appendChild(listItem);
-        taskInput.value = '';
-        updateProgressBar();
-    }
+    let taskList = document.getElementById('taskList');
+    let newTask = document.createElement('div');
+    newTask.classList.add('task');
+    newTask.innerHTML = `<input type="checkbox"><label>${taskValue}</label> <button class="deleteTask">X</button>`;
+    taskList.appendChild(newTask);
+    taskInput.value = '';
 }
 
-// Event listeners for adding tasks
-addTaskBtn.addEventListener('click', addTask);
-taskInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        addTask();
-    }
-});
+function toggleCompletion(checkbox) {
+    let label = checkbox.nextSibling;
+    label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+}
 
-// Function to download completed tasks
-downloadBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    const completedTasks = Array.from(taskList.querySelectorAll('.completed')).map(task => task.textContent);
-    const blob = new Blob([completedTasks.join('\n')], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'completed_tasks.txt';
+function downloadTasks() {
+    let tasks = document.querySelectorAll('#taskList label');
+    let data = Array.from(tasks).map(task => {
+        let completed = task.previousElementSibling.checked;
+        return `"${task.innerText}", ${completed}`;
+    });
+    let csvContent = "data:text/csv;charset=utf-8,Task,Completed\n" + data.join("\n");
+    let encodedUri = encodeURI(csvContent);
+    let link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_tasks.csv");
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(url);
-});
-});
+    document.body.removeChild(link);
+}
