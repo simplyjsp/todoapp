@@ -1,11 +1,12 @@
 body {
     background-color: #0e0e0e;
-    color: #008F11; /* Neon green color */
+    color: #3cff00; /* Neon green color */
     font-family: 'Futuristic Font', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0; /* Remove default margin */
 }
 
 .container {
@@ -13,20 +14,37 @@ body {
     box-shadow: 0px 0px 10px 3px #3cff00; /* Box shadow for container */
     padding: 20px;
     border-radius: 10px;
+    width: auto; /* Adjust width as needed */
+}
+
+#dateDisplay {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+#taskInput {
+    width: 70%; /* Adjust width as needed */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #3cff00;
 }
 
 #addTaskButton, #downloadButton {
-    background-color: #3cff00;
-    border: none;
-    color: white;
+    background-color: #3cff00; /* Neon green background */
+    border: 1px solid #ffffff; /* White border for better visibility */
+    color: #000000; /* Black text for better contrast */
     cursor: pointer;
     margin: 5px;
     padding: 10px 20px;
     border-radius: 5px;
+    font-weight: bold; /* Making text bold for better readability */
+    text-transform: uppercase; /* Uppercase text for a modern look */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 #addTaskButton:hover, #downloadButton:hover {
-    background-color: #2fb200;
+    background-color: #2fb200; /* Slightly darker green for hover state */
 }
 
 .task {
@@ -34,9 +52,19 @@ body {
     padding: 5px;
     border-radius: 5px;
     background-color: #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .task:hover {
     box-shadow: 0px 0px 5px 2px #3cff00; /* Hover effect for tasks */
 }
 
+.deleteTask {
+    color: #ff0000; /* Red color for delete button */
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Additional styling as needed */
