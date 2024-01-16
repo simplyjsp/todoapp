@@ -1,105 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do App</title>
-        <link rel="stylesheet" href="index.css">
-
-    <style>
-   </style>
+    <title>Futuristic To-Do App</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Include your CSS file here -->
 </head>
 <body>
-    <div class="header">
-        <div>To Do</div>
-        <div id="date-display"></div>
-    </div>
-    <div class="app-container">
-        <input type="text" class="task-input" placeholder="Enter task...">
-        <button class="add-task-btn">Enter Task</button>
-        <ul class="task-list"></ul>
-        <div class="progress-bar-container">
-            <div class="progress-bar"></div>
-        </div>
-        <a href="#" class="download-btn">Complete Tasks</a>
+    <div class="container">
+        <div id="dateDisplay"></div>
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button id="addTaskButton">Add Task</button>
+        <div id="taskList"></div>
+        <button id="downloadButton">Download Tasks</button>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const taskInput = document.querySelector('.task-input');
-            const taskList = document.querySelector('.task-list');
-            const progressBarContainer = document.querySelector('.progress-bar-container');
-            const progressBar = document.querySelector('.progress-bar');
-            const downloadBtn = document.querySelector('.download-btn');
-            const addTaskBtn = document.querySelector('.add-task-btn');
-
-            // Initially hide the progress bar container
-            progressBarContainer.style.display = 'none';
-
-            // Display current date
-            const dateDisplay = document.getElementById('date-display');
-            const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            dateDisplay.textContent = currentDate;
-
-            function updateProgressBar() {
-                const tasks = taskList.querySelectorAll('.task-list-item');
-                const completedTasks = taskList.querySelectorAll('.completed').length;
-                const totalTasks = tasks.length;
-                const progress = totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
-                progressBar.style.width = progress + '%';
-                progressBarContainer.style.display = totalTasks === 0 ? 'none' : 'block';
-            }
-
-            function addTask() {
-                if (taskInput.value.trim() !== '') {
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('task-list-item');
-
-                    const textSpan = document.createElement('span');
-                    textSpan.textContent = taskInput.value;
-                    listItem.appendChild(textSpan);
-                             const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'Delete';
-                deleteBtn.classList.add('delete-task-btn');
-                deleteBtn.onclick = function() {
-                    listItem.remove();
-                    updateProgressBar();
-                };
-
-                listItem.appendChild(deleteBtn);
-
-                listItem.addEventListener('click', function(event) {
-                    if (event.target === textSpan) {
-                        listItem.classList.toggle('completed');
-                        updateProgressBar();
-                    }
-                });
-
-                taskList.appendChild(listItem);
-                taskInput.value = '';
-                updateProgressBar();
-            }
-        }
-
-        addTaskBtn.addEventListener('click', addTask);
-        taskInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addTask();
-            }
-        });
-
-        downloadBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const completedTasks = Array.from(taskList.querySelectorAll('.completed')).map(task => task.textContent);
-            const blob = new Blob([completedTasks.join('\n')], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'completed_tasks.txt';
-            link.click();
-            URL.revokeObjectURL(url);
-        });
-    });
-</script>
+    <script src="script.js"></script>
+    <!-- Include your JavaScript file here -->
 </body>
 </html>
