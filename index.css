@@ -2,75 +2,91 @@ body {
     background-color: #0e0e0e;
     color: #3cff00; /* Neon green color */
     font-family: 'Futuristic Font', sans-serif;
-    margin: 0; /* Remove default margin */
-    padding: 10px;
     display: flex;
-    flex-direction: column; /* Stack elements vertically on all screen sizes */
+    justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensure it covers at least the full viewport height */
+    height: 100vh;
+    margin: 0; /* Remove default margin */
 }
 
 .container {
-text-align: center;
-box-shadow: 0px 0px 10px 3px #3cff00; /* Box shadow for container /
-padding: 20px;
-border-radius: 10px;
-max-width: 500px; / Set a max-width for larger screens /
-width: 100%; / Full width on all screens /
-margin: 0 auto; / Center the container */
+    text-align: center;
+    box-shadow: 0px 0px 10px 3px #3cff00; /* Box shadow for container */
+    padding: 20px;
+    border-radius: 10px;
+    width: auto; /* Adjust width as needed */
 }
 
 #dateDisplay {
-margin-bottom: 20px;
-font-size: 1.5em; /* Increase font size */
+    margin-bottom: 20px;
+    font-size: 1.2em;
 }
 
 #taskInput {
-width: 90%; /* More width for task input /
-padding: 15px; / Increase padding /
-margin-bottom: 10px;
-border-radius: 5px;
-border: 1px solid #3cff00;
-font-size: 1em; / Larger font size for readability */
+    width: 70%; /* Adjust width as needed */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #3cff00;
 }
 
 #addTaskButton, #downloadButton {
-background-color: #3cff00;
-border: 1px solid #ffffff;
-color: #000000;
-cursor: pointer;
-margin: 5px;
-padding: 15px 25px; /* Increase padding /
-border-radius: 5px;
-font-weight: bold;
-text-transform: uppercase;
-font-size: 1em; / Larger font size for readability */
-transition: background-color 0.3s ease;
+    background-color: #3cff00;
+    border: 1px solid #ffffff;
+    color: #000000;
+    cursor: pointer;
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
 }
 
 #addTaskButton:hover, #downloadButton:hover {
-background-color: #2fb200;
+    background-color: #2fb200;
 }
 
 .task {
-margin: 5px;
-padding: 10px; /* Increase padding /
-border-radius: 5px;
-background-color: #1a1a1a;
-display: flex;
-justify-content: space-between;
-align-items: center;
-font-size: 1em; / Increase font size for tasks */
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .task:hover {
-box-shadow: 0px 0px 5px 2px #3cff00;
+    box-shadow: 0px 0px 5px 2px #3cff00;
 }
 
 .deleteTask {
-color: #ff0000;
-cursor: pointer;
-margin-left: 10px;
+    color: #ff0000;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Add padding for smaller screens */
+        height: auto; /* Adjust height for mobile scrolling */
+        flex-direction: column; /* Stack elements vertically */
+    }
+
+    .container {
+        width: 100%; /* Full width on small screens */
+        box-shadow: none; /* Optional: remove box shadow on small screens */
+    }
+
+    #taskInput {
+        width: 90%; /* More width for task input on small screens */
+    }
+
+    .task {
+        font-size: 0.9em; /* Adjust font size for tasks */
+    }
 }
 
 
