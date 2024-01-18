@@ -15,6 +15,8 @@ body {
     padding: 20px;
     border-radius: 10px;
     width: auto; /* Adjust width as needed */
+    max-height: 80vh; /* Maximum height */
+    overflow-y: auto; /* Make it scrollable */
 }
 
 #dateDisplay {
@@ -67,7 +69,6 @@ body {
     margin-left: 10px;
 }
 
-/* Responsive design for mobile devices */
 @media (max-width: 768px) {
     body {
         padding: 10px; /* Add padding for smaller screens */
@@ -78,6 +79,8 @@ body {
     .container {
         width: 100%; /* Full width on small screens */
         box-shadow: none; /* Optional: remove box shadow on small screens */
+        max-height: none; /* Full height on small screens */
+        overflow-y: visible; /* Normal overflow behavior on small screens */
     }
 
     #taskInput {
